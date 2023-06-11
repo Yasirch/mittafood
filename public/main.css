@@ -124,6 +124,12 @@ body,
   .input-dark {
     width: auto;
   }
+    .mobile-card-desktop{
+        display: block;
+    }
+    .mobile-card-mobile{
+        display: none;
+    }
 }
 
 .display-3 {
@@ -134,6 +140,18 @@ body,
   .display-3 {
     font-size: 2.5rem;
   }
+    .margin-mobile{
+        margin-bottom:10px;
+    }
+    .mobile-card-desktop{
+        display: none;
+    }
+    .mobile-card-mobile{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
 }
 
 .form-group {

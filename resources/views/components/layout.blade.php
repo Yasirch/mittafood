@@ -18,11 +18,16 @@
         <h4 class="my-0 mr-md-auto font-weight-normal"><a href="/" class="text-white">MittaGitsch</a></h4>
         @auth
             <div class="flex-row my-3 my-md-0">
-                <a href="#" class="text-white mr-2 header-search-icon" title="Search" data-toggle="tooltip" data-placement="bottom"><i class="fas fa-search"></i></a>
-                <span class="text-white mr-2 header-chat-icon" title="Chat" data-toggle="tooltip" data-placement="bottom"><i class="fas fa-comment"></i></span>
-                <a href="/login" class="btn btn-sm btn-primary mr-2" >My All Restaurant</a>
-                <a class="btn btn-sm btn-primary mr-2" href="/restaurant">Add Restaurant</a>
-                <form action="/logout" method="POST" class="d-inline">
+
+                <div class="d-md-inline-block d-block">
+                    <a href="/login" class="btn btn-sm btn-primary margin-mobile">My All Restaurant</a>
+                </div>
+
+                <div class="d-md-inline-block d-block">
+                    <a class="btn btn-sm btn-primary margin-mobile" href="/restaurant">Add Restaurant</a>
+                </div>
+
+                <form action="/logout" method="POST" class="d-md-inline-block mb-2 d-block">
                     @csrf
                     <button class="btn btn-sm btn-primary">Sign Out</button>
                 </form>

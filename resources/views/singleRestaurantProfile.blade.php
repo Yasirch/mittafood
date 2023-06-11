@@ -15,8 +15,9 @@
                         <div class="text-restaurant margin-auto max-width-500 m-15 text-white"> Restaurant Name: {{$restaurant->name}} </div>
                     </div>
                 </div>
+
                     <div class="card p-3 py-4 ">
-                       <div class="flex-center">
+                       <div class="flex-center mobile-card-desktop">
                            @php
                                $weekdays = ['Monday', 'Tuesday', 'Wednesday'];
 
@@ -32,7 +33,7 @@
                                }
                            @endphp
                        </div>
-                       <div class="flex-center">
+                       <div class="flex-center mobile-card-desktop">
                            @php
                                $weekdays = ['Thursday', 'Friday', 'Saturday'];
 
@@ -48,7 +49,7 @@
                                }
                            @endphp
                        </div>
-                       <div class="flex-center">
+                       <div class="flex-center mobile-card-desktop">
                            @php
                                $menuForSunday = $restaurant->menus()->where('weekday', 'Sunday')->first();
                                $menuExistsForSunday = !is_null($menuForSunday);
@@ -60,6 +61,23 @@
                                <a class="btn btn-sm btn-red mb-2 mr-2" href="{{ route('menus.create', ['restaurant' => $restaurant->id, 'weekday' => 'Sunday']) }}">Add Sunday Menu</a>
                            @endif
                        </div>
+
+                        <div class="flex-center mobile-card-mobile">
+                            @php
+                                $weekdays = ['Monday', 'Tuesday', 'Wednesday','Thursday', 'Friday', 'Saturday','Sunday'];
+
+                                foreach ($weekdays as $weekday) {
+                                    $menuForDay = $restaurant->menus()->where('weekday', $weekday)->first();
+                                    $menuExistsForDay = !is_null($menuForDay);
+
+                                    if ($menuExistsForDay) {
+                                        echo '<a class="btn btn-sm btn-red mb-2 mr-2" href="'.route('menus.edit', ['restaurant' => $restaurant->id, 'menu' => $menuForDay->id]).'">Edit '.$weekday.' Menu</a>';
+                                    } else {
+                                        echo '<a class="btn btn-sm btn-red mb-2 mr-2" href="'.route('menus.create', ['restaurant' => $restaurant->id, 'weekday' => $weekday]).'">Add '.$weekday.' Menu</a>';
+                                    }
+                                }
+                            @endphp
+                        </div>
 
                     <div class="card p-3 text-center py-4">
                         <div class="medium">
@@ -90,7 +108,31 @@
                         <div class="container pt-4">
                             <div class="row">
                                 <div class="col-12 col-md-12 col-lg-12">
-                                    <ul class="nav nav-tabs link-color nav-justified" role="tablist">
+                                    <ul class="nav nav-tabs d-md-none link-color " role="tablist">
+                                        <li class="nav-item">
+                                            <a class="nav-link active" data-toggle="tab" href="#monday" role="tab" aria-controls="monday" aria-selected="true">Monday</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" data-toggle="tab" href="#tuesday" role="tab" aria-controls="tuesday" aria-selected="false">Tuesday</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" data-toggle="tab" href="#wednesday" role="tab" aria-controls="wednesday" aria-selected="false">Wednesday</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" data-toggle="tab" href="#thursday" role="tab" aria-controls="thursday" aria-selected="false">Thursday</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" data-toggle="tab" href="#friday" role="tab" aria-controls="friday" aria-selected="false">Friday</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" data-toggle="tab" href="#saturday" role="tab" aria-controls="saturday" aria-selected="false">Saturday</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" data-toggle="tab" href="#sunday" role="tab" aria-controls="sunday" aria-selected="false">Sunday</a>
+                                        </li>
+                                    </ul>
+
+                                    <ul class="nav nav-tabs link-color  d-none d-md-flex  nav-justified " role="tablist">
                                         <li class="nav-item">
                                             <a class="nav-link active green-color" data-toggle="tab" href="#monday" role="tab" aria-controls="monday" aria-selected="true">Monday</a>
                                         </li>
@@ -363,7 +405,7 @@
                                                         <div class="medium">
                                                             Edit or Delete the {{$menu->weekday}} Menu Here:
                                                         </div>
-                                                        <span class="pt-2">
+                                                        <span class="pt-2 mb-2">
                                                               <a href="{{ route('menus.edit', ['restaurant' => $restaurant->id, 'menu' => $menu->id]) }}" class="text-primary mr-2" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fas fa-edit"></i></a>
                                                               <form class="delete-post-form d-inline" action="{{ route('menus.destroy', ['restaurant' => $restaurant->id, 'weekday' => $menu->weekday]) }}" method="POST">
                                                                   @csrf
